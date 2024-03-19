@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import CardNote from "../components/CardNote";
 import Container from "../components/Container";
 
-const Home = () => {
+const Home = ({ notes }) => {
   return (
     <Container>
       <div className="flex flex-col  ">
@@ -14,10 +15,9 @@ const Home = () => {
           Catatan Aktif
         </h1>
         <div className="flex flex-col space-y-5 md:grid md:grid-cols-3 md:gap-5 md:space-y-0 lg:grid-cols-4">
-          <CardNote />
-          <CardNote />
-          <CardNote />
-          <CardNote />
+          {notes.map((note) => (
+            <CardNote key={note.id} note={note} />
+          ))}
         </div>
       </div>
     </Container>
