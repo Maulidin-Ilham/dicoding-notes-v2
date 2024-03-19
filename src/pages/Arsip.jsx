@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import CardNote from "../components/CardNote";
 import Container from "../components/Container";
 
-const Arsip = () => {
+const Arsip = ({ notes }) => {
   return (
     <>
       <Container>
@@ -15,10 +16,13 @@ const Arsip = () => {
             Catatan Arsip
           </h1>
           <div className="flex flex-col space-y-5 md:grid md:grid-cols-3 md:gap-5 md:space-y-0 lg:grid-cols-4">
-            <CardNote />
-            <CardNote />
-            <CardNote />
-            <CardNote />
+            {notes.length > 0 &&
+              notes.map((note) => <CardNote key={note.id} note={note} />)}
+            {notes.length == 0 && (
+              <>
+                <h1>Notes tidak ada</h1>
+              </>
+            )}
           </div>
         </div>
       </Container>

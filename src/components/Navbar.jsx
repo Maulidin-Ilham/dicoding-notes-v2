@@ -9,7 +9,7 @@ const Navbar = () => {
         </h1>
       </Link>
       <div className="flex flex-row space-x-5 items-center justify-center">
-        <Link to={"/note/newnote"}>
+        <Link to={"/notes/newnotes"}>
           <h1 className="font-semibold text-lg hover:opacity-80 transition ease-in-out duration-200">
             Add note
           </h1>
