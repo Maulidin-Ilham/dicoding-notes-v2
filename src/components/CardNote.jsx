@@ -1,21 +1,20 @@
+/* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
+import { getFormatedDate } from "../utils/getFormatedDate";
 
-const CardNote = () => {
+const CardNote = ({ note }) => {
+  let date = note.createdAt;
+
   return (
     <>
       <Link to={"/note/2"}>
-        <div className="bg-gray-200 border border-gray-200 p-4 rounded-md shadow-md min-h-[180px] lg:min-h-[230px] flex flex-col justify-between space-y-3  hover:opacity-80 transition duration-200 ease-in-out">
+        <div className="bg-gray-200 border border-gray-200 p-4 rounded-md shadow-md min-h-[180px] lg:min-h-[230px] flex flex-col justify-between space-y-3  hover:opacity-70 transition duration-200 ease-in-out">
           <div className="flex flex-col space-y-4">
-            <h1 className="font-semibold text-lg line-clamp-1">
-              juddsdadsd sasa{" "}
-            </h1>
-            <p className="line-clamp-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores,
-              repellendus! Lorem ipsum
-            </p>
+            <h1 className="font-semibold text-lg line-clamp-1">{note.title}</h1>
+            <p className="line-clamp-4">{note.body}</p>
           </div>
           <div>
-            <p>21/02/2024</p>
+            <p>{getFormatedDate(date)}</p>
           </div>
         </div>
       </Link>
