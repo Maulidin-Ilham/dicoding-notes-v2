@@ -1,26 +1,33 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import Container from "../components/Container";
+import { useNavigate } from "react-router-dom";
 
-const NewNote = () => {
+const NewNote = ({ getValueForm }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [archived, setArchived] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const date = new Date();
-    const id = date.getTime().toString();
-    const createdAt = date.toISOString();
-    const newNote = {
-      id,
-      title,
-      body,
-      archived,
-      createdAt,
-    };
-
-    console.log(newNote);
+    if (title.trim() !== "" && body.trim() !== "") {
+      const date = new Date();
+      const id = date.getTime().toString();
+      const createdAt = date.toISOString();
+      const newNote = {
+        id,
+        title,
+        body,
+        archived,
+        createdAt,
+      };
+      getValueForm(newNote);
+      setTitle("");
+      setBody("");
+      navigate("/");
+    }
   };
 
   return (
@@ -40,6 +47,7 @@ const NewNote = () => {
                 className="p-3 rounded-md outline-none border border-transparent focus:border focus:border-gray-500"
                 onChange={(e) => setTitle(e.target.value)}
                 value={title}
+                required
               />
               <textarea
                 name="body"
@@ -50,6 +58,7 @@ const NewNote = () => {
                 placeholder="Body..."
                 onChange={(e) => setBody(e.target.value)}
                 value={body}
+                required
               ></textarea>
               <button
                 type="submit"
