@@ -14,13 +14,25 @@ const App = () => {
   const archivedNotes = notes.filter((note) => note.archived === true);
   const activeNotes = notes.filter((note) => note.archived === false);
 
+  const addNotes = (newNote) => {
+    setNotes([...notes, newNote]);
+  };
+
+  const getValueForm = (value) => {
+    console.log(value);
+    addNotes(value);
+  };
+
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home notes={activeNotes} />} />
         <Route path="/arsip" element={<Arsip notes={archivedNotes} />} />
         <Route path="/notes/:noteId" element={<DetailPage notes={notes} />} />
-        <Route path="/notes/newnotes" element={<NewNote />} />
+        <Route
+          path="/notes/newnotes"
+          element={<NewNote getValueForm={getValueForm} />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
