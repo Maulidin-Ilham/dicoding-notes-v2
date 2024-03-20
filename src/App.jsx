@@ -11,8 +11,8 @@ import { useState } from "react";
 const App = () => {
   const [notes, setNotes] = useState(data);
   console.log(notes);
-  const archivedNotes = notes.filter((note) => note.archived == true);
-  const activeNotes = notes.filter((note) => note.archived == false);
+  const archivedNotes = notes.filter((note) => note.archived === true);
+  const activeNotes = notes.filter((note) => note.archived === false);
 
   return (
     <Router>
