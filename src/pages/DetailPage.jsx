@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Container from "../components/Container";
 import { getFormatedDate } from "../utils/getFormatedDate";
 
-const DetailPage = ({ notes, getDeleteId }) => {
+const DetailPage = ({ notes, getDeleteId, getArchivedId, getUnarchivedId }) => {
   const { noteId } = useParams();
   const navigate = useNavigate();
 
@@ -13,6 +13,16 @@ const DetailPage = ({ notes, getDeleteId }) => {
   const deleteHandler = (id) => {
     getDeleteId(id);
     navigate("/");
+  };
+
+  const archivedToggle = (id) => {
+    if (selectedNote.archived === true) {
+      getUnarchivedId(id);
+      navigate("/arsip");
+    } else {
+      getArchivedId(id);
+      navigate("/");
+    }
   };
 
   return (
@@ -24,7 +34,10 @@ const DetailPage = ({ notes, getDeleteId }) => {
         </p>
         <p className="text-lg mt-5">{selectedNote.body}</p>
         <div className="flex flex-row space-x-4 mt-4">
-          <button className="p-3 bg-blue-400 text-white w-[100px] rounded-md hover:opacity-80 transition duration-200 ease-in-out">
+          <button
+            className="p-3 bg-blue-400 text-white w-[100px] rounded-md hover:opacity-80 transition duration-200 ease-in-out"
+            onClick={() => archivedToggle(selectedNote.id)}
+          >
             {selectedNote.archived == false ? "Arsip" : "Undo"}
           </button>
           <button
