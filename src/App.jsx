@@ -22,7 +22,8 @@ const App = () => {
   };
 
   const getDeleteId = (noteId) => {
-    console.log(noteId);
+    const filteredNotes = notes.filter((note) => note.id !== noteId);
+    setNotes(filteredNotes);
   };
 
   return (
