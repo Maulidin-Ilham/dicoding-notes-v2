@@ -15,9 +15,13 @@ const Home = ({ notes }) => {
           Catatan Aktif
         </h1>
         <div className="flex flex-col space-y-5 md:grid md:grid-cols-3 md:gap-5 md:space-y-0 lg:grid-cols-4">
-          {notes.map((note) => (
-            <CardNote key={note.id} note={note} />
-          ))}
+          {notes.length > 0 &&
+            notes.map((note) => <CardNote key={note.id} note={note} />)}
+          {notes.length == 0 && (
+            <>
+              <h1>Notes tidak ada</h1>
+            </>
+          )}
         </div>
       </div>
     </Container>

@@ -26,6 +26,21 @@ const App = () => {
     setNotes(filteredNotes);
   };
 
+  const getArchivedId = (noteId) => {
+    const updatedNotes = notes.map((note) =>
+      note.id === noteId ? { ...note, archived: true } : note
+    );
+    setNotes(updatedNotes);
+  };
+
+  const getUnarchivedId = (noteId) => {
+    console.log(noteId);
+    const updatedNotes = notes.map((note) =>
+      note.id === noteId ? { ...note, archived: false } : note
+    );
+    setNotes(updatedNotes);
+  };
+
   return (
     <Router>
       <Routes>
@@ -33,7 +48,14 @@ const App = () => {
         <Route path="/arsip" element={<Arsip notes={archivedNotes} />} />
         <Route
           path="/notes/:noteId"
-          element={<DetailPage notes={notes} getDeleteId={getDeleteId} />}
+          element={
+            <DetailPage
+              notes={notes}
+              getDeleteId={getDeleteId}
+              getArchivedId={getArchivedId}
+              getUnarchivedId={getUnarchivedId}
+            />
+          }
         />
         <Route
           path="/notes/newnotes"
