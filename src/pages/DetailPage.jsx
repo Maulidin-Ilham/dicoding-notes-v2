@@ -1,13 +1,20 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Container from "../components/Container";
 import { getFormatedDate } from "../utils/getFormatedDate";
 
-const DetailPage = ({ notes }) => {
+const DetailPage = ({ notes, getDeleteId }) => {
   const { noteId } = useParams();
+  const navigate = useNavigate();
 
   const selectedNote = notes.find((note) => note.id === noteId);
+
+  const deleteHandler = (id) => {
+    getDeleteId(id);
+    navigate("/");
+  };
+
   return (
     <>
       <Container>
@@ -20,7 +27,10 @@ const DetailPage = ({ notes }) => {
           <button className="p-3 bg-blue-400 text-white w-[100px] rounded-md hover:opacity-80 transition duration-200 ease-in-out">
             {selectedNote.archived == false ? "Arsip" : "Undo"}
           </button>
-          <button className="p-3 bg-red-400 text-white w-[100px] rounded-md hover:opacity-80 transition duration-200 ease-in-out">
+          <button
+            className="p-3 bg-red-400 text-white w-[100px] rounded-md hover:opacity-80 transition duration-200 ease-in-out"
+            onClick={() => deleteHandler(selectedNote.id)}
+          >
             Delete
           </button>
         </div>
