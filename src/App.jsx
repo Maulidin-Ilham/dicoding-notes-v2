@@ -10,7 +10,9 @@ import { useState } from "react";
 
 const App = () => {
   const [notes, setNotes] = useState(data);
+
   const archivedNotes = notes.filter((note) => note.archived === true);
+
   const activeNotes = notes.filter((note) => note.archived === false);
 
   const addNotes = (newNote) => {
