@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import { useNavigate, useParams } from "react-router-dom";
 import Container from "../components/Container";
 import { getFormatedDate } from "../utils/getFormatedDate";
+import PropTypes from "prop-types";
 
 const DetailPage = ({ notes, getDeleteId, getArchivedId, getUnarchivedId }) => {
   const { noteId } = useParams();
@@ -101,6 +100,21 @@ const DetailPage = ({ notes, getDeleteId, getArchivedId, getUnarchivedId }) => {
       </Container>
     </>
   );
+};
+
+DetailPage.propTypes = {
+  notes: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      body: PropTypes.string.isRequired,
+      archived: PropTypes.bool.isRequired,
+      createdAt: PropTypes.string.isRequired,
+    })
+  ),
+  getDeleteId: PropTypes.func.isRequired,
+  getArchivedId: PropTypes.func.isRequired,
+  getUnarchivedId: PropTypes.func.isRequired,
 };
 
 export default DetailPage;

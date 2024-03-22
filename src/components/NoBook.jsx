@@ -1,5 +1,5 @@
 import empty from "../../public/empty.png";
-
+import PropTypes from "prop-types";
 const NoBook = ({ children }) => {
   return (
     <div className="flex flex-col space-y-5">
@@ -9,6 +9,10 @@ const NoBook = ({ children }) => {
       </h1>
     </div>
   );
+};
+
+NoBook.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default NoBook;

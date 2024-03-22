@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import { getFormatedDate } from "../utils/getFormatedDate";
-
+import PropTypes from "prop-types";
 const CardNote = ({ note }) => {
   let date = note.createdAt;
 
@@ -20,6 +20,15 @@ const CardNote = ({ note }) => {
       </Link>
     </>
   );
+};
+
+CardNote.propTypes = {
+  note: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired,
+    createdAt: PropTypes.string.isRequired,
+  }),
 };
 
 export default CardNote;

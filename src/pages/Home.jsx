@@ -1,10 +1,9 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import { useState } from "react";
 import CardNote from "../components/CardNote";
 import Container from "../components/Container";
 import { useSearchParams } from "react-router-dom";
 import NoBook from "../components/NoBook";
+import PropTypes from "prop-types";
 
 const Home = ({ notes }) => {
   const [searchParams, setSearchParams] = useSearchParams("");
@@ -44,6 +43,18 @@ const Home = ({ notes }) => {
       </div>
     </Container>
   );
+};
+
+Home.propTypes = {
+  notes: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      body: PropTypes.string.isRequired,
+      archived: PropTypes.bool.isRequired,
+      createdAt: PropTypes.string.isRequired,
+    })
+  ),
 };
 
 export default Home;
