@@ -10,9 +10,11 @@ const NewNote = ({ getValueForm }) => {
   const [archived, setArchived] = useState(false);
   const navigate = useNavigate();
 
+  let counter = title.length + body.length;
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (title.trim() !== "" && body.trim() !== "") {
+    if (title.trim() !== "" && body.trim() !== "" && counter <= 50) {
       const date = new Date();
       const id = date.getTime().toString();
       const createdAt = date.toISOString();
@@ -35,7 +37,13 @@ const NewNote = ({ getValueForm }) => {
       <Container>
         <div className="md:flex md:flex-col md:items-center">
           <div className="bg-gray-200 border border-gray-200 p-5 rounded-md shadow-md md:w-7/12 lg:w-6/12">
-            <h1 className="mb-4 font-semibold">Karakter 50/50</h1>
+            <h1
+              className={`mb-4 font-semibold ${
+                counter > 50 ? "text-red-500" : ""
+              }`}
+            >
+              Karakter {counter}/50
+            </h1>
             <form
               action=""
               className="flex flex-col space-y-3 w-full"
