@@ -4,6 +4,7 @@ import { useState } from "react";
 import CardNote from "../components/CardNote";
 import Container from "../components/Container";
 import { useSearchParams } from "react-router-dom";
+import NoBook from "../components/NoBook";
 
 const Home = ({ notes }) => {
   const [searchParams, setSearchParams] = useSearchParams("");
@@ -35,9 +36,9 @@ const Home = ({ notes }) => {
           {filteredNotes.length > 0 &&
             filteredNotes.map((note) => <CardNote key={note.id} note={note} />)}
           {filteredNotes.length == 0 && (
-            <>
-              <h1>Notes tidak ada</h1>
-            </>
+            <div className="flex flex-col justify-center items-center my-6 md:col-start-2 lg:col-start-2 lg:col-span-2">
+              <NoBook>Maaf Catatan Kosong...</NoBook>
+            </div>
           )}
         </div>
       </div>
