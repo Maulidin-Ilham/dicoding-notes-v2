@@ -1,6 +1,6 @@
 import Navbar from "./Navbar";
+import PropTypes from "prop-types";
 
-/* eslint-disable react/prop-types */
 const Container = ({ children }) => {
   return (
     <>
@@ -11,6 +11,10 @@ const Container = ({ children }) => {
       </div>
     </>
   );
+};
+
+Container.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default Container;

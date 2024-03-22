@@ -4,6 +4,7 @@ import CardNote from "../components/CardNote";
 import Container from "../components/Container";
 import { useSearchParams } from "react-router-dom";
 import NoBook from "../components/NoBook";
+import PropTypes from "prop-types";
 
 const Arsip = ({ notes }) => {
   const [searchParams, setSearchParams] = useSearchParams("");
@@ -46,6 +47,18 @@ const Arsip = ({ notes }) => {
       </Container>
     </>
   );
+};
+
+Arsip.propTypes = {
+  notes: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      body: PropTypes.string.isRequired,
+      archived: PropTypes.bool.isRequired,
+      createdAt: PropTypes.string.isRequired,
+    })
+  ),
 };
 
 export default Arsip;

@@ -1,8 +1,8 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import Container from "../components/Container";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const NewNote = ({ getValueForm }) => {
   const [title, setTitle] = useState("");
@@ -80,6 +80,9 @@ const NewNote = ({ getValueForm }) => {
       </Container>
     </>
   );
+};
+NewNote.propTypes = {
+  getValueForm: PropTypes.func.isRequired,
 };
 
 export default NewNote;
