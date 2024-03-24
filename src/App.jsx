@@ -7,6 +7,8 @@ import NewNote from "./pages/NewNote";
 import NotFound from "./pages/NotFound";
 import { data } from "./utils/data";
 import { useState } from "react";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 const App = () => {
   const [notes, setNotes] = useState(data);
@@ -36,7 +38,6 @@ const App = () => {
   };
 
   const getUnarchivedId = (noteId) => {
-    console.log(noteId);
     const updatedNotes = notes.map((note) =>
       note.id === noteId ? { ...note, archived: false } : note
     );
@@ -63,6 +64,8 @@ const App = () => {
           path="/notes/newnotes"
           element={<NewNote getValueForm={getValueForm} />}
         />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
