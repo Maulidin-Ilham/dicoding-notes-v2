@@ -34,7 +34,7 @@ const DetailPage = ({ notes, getDeleteId, getArchivedId, getUnarchivedId }) => {
         <p className="text-lg mt-5">{selectedNote.body}</p>
         <div className="flex flex-row space-x-4 mt-4">
           <button
-            className="p-3 bg-blue-400 text-white w-[100px] rounded-md hover:opacity-80 transition duration-200 ease-in-out flex flex-col justify-center items-center"
+            className="p-3 bg-blue-400 text-black w-[100px] rounded-md hover:opacity-80 transition duration-200 ease-in-out flex flex-col justify-center items-center"
             onClick={() => archivedToggle(selectedNote.id)}
             title={
               selectedNote.archived === false ? "Arsipkan" : "Batalkan Arsip"
@@ -77,7 +77,7 @@ const DetailPage = ({ notes, getDeleteId, getArchivedId, getUnarchivedId }) => {
             )}
           </button>
           <button
-            className="p-3 bg-red-400 text-white w-[100px] rounded-md hover:opacity-80 transition duration-200 ease-in-out flex justify-center items-center"
+            className="p-3 bg-red-400 text-black w-[100px] rounded-md hover:opacity-80 transition duration-200 ease-in-out flex justify-center items-center"
             onClick={() => deleteHandler(selectedNote.id)}
             title="Hapus"
           >
