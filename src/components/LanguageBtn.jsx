@@ -1,16 +1,18 @@
 import PropTypes from "prop-types";
+import uk from "/uk.png";
+import indonesia from "/indonesia.png";
 
 const LanguageBtn = ({ isBahasa }) => {
   return (
     <>
       {isBahasa ? (
-        <>
-          <h1>EN</h1>
-        </>
+        <button className="flex flex-col justify-center items-center">
+          <img src={uk} alt="" className="w-6 h-6" />
+        </button>
       ) : (
-        <>
-          <h1>ID</h1>
-        </>
+        <button className="flex flex-col justify-center items-center">
+          <img src={indonesia} alt="" className="w-6 h-6" />
+        </button>
       )}
     </>
   );
