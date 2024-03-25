@@ -16,6 +16,7 @@ const Login = () => {
       if (error) {
         console.error(error);
       } else {
+        console.log("berhasil login");
         navigate("/");
       }
     }
