@@ -1,29 +1,30 @@
-import { useState } from "react";
-import Container from "../components/Container";
 import { useNavigate } from "react-router-dom";
+import Container from "../components/Container";
 import useInput from "../hooks/useInput";
 import useRegister from "../hooks/useRegister";
 
 const Register = () => {
   const navigate = useNavigate();
+  const [name, onChangeName] = useInput("");
+  const [email, onChangeEmail] = useInput("");
+  const [password, onChangePassword] = useInput("");
+  const { register } = useRegister();
 
-  const [name, onNameChange] = useInput("");
-  const [email, onEmailChange] = useInput("");
-  const [password, onPasswordChange] = useInput("");
-
-  const register = async (name, email, password) => {
-    const { status, message } = await useRegister({ name, email, password });
-    if (status === "success") {
-      console.log({ status, message });
-      navigate("/login");
-    } else {
-      console.log({ status, message });
-    }
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    register(name, email, password);
+    if (
+      password.length >= 6 &&
+      name.trim() !== "" &&
+      email !== "" &&
+      password.trim() !== ""
+    ) {
+      const { error } = await register({ name, email, password });
+      if (error) {
+        console.log(error);
+      } else {
+        navigate("/login");
+      }
+    }
   };
 
   return (
@@ -39,27 +40,27 @@ const Register = () => {
             >
               <input
                 type="text"
-                placeholder="Name..."
+                placeholder="Nama..."
                 className="p-3 rounded-md outline-none border border-transparent focus:border focus:border-gray-500"
-                required
+                onChange={onChangeName}
                 value={name}
-                onChange={(e) => onNameChange(e)}
+                required
               />
               <input
                 type="email"
-                placeholder="youremail@gmail.com"
+                placeholder="Email..."
                 className="p-3 rounded-md outline-none border border-transparent focus:border focus:border-gray-500"
-                required
+                onChange={onChangeEmail}
                 value={email}
-                onChange={(e) => onEmailChange(e)}
+                required
               />
               <input
-                type="text"
+                type="password"
                 placeholder="Password..."
                 className="p-3 rounded-md outline-none border border-transparent focus:border focus:border-gray-500"
-                required
+                onChange={onChangePassword}
                 value={password}
-                onChange={(e) => onPasswordChange(e)}
+                required
               />
 
               <button
