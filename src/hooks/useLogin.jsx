@@ -1,9 +1,7 @@
+import { putAccessToken } from "../utils/putAccessToken";
+
 const useLogin = () => {
   const BASE_URL = "https://notes-api.dicoding.dev/v1";
-
-  const putAccessToken = (accessToken) => {
-    return localStorage.setItem("accessToken", accessToken);
-  };
 
   const login = async ({ email, password }) => {
     const response = await fetch(`${BASE_URL}/login`, {
