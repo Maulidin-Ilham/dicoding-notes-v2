@@ -4,6 +4,7 @@ import {
   Routes,
   Route,
   Navigate,
+  useNavigate,
 } from "react-router-dom";
 import Home from "./pages/Home";
 import Arsip from "./pages/Arsip";
@@ -14,21 +15,26 @@ import { data } from "./utils/data";
 import { useEffect, useState } from "react";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import useLogged from "./hooks/useLogged";
 
 const App = () => {
-  const [notes, setNotes] = useState(data);
-  const { getLoggedIn } = useLogged();
-  const [isLogin, setIslogin] = useState(false);
+  const [notes, setNotes] = useState([
+    {
+      id: "notes-1",
+      title: "Babel",
+      body: "Babel merupakan tools open-source yang digunakan untuk mengubah sintaks ECMAScript 2015+ menjadi sintaks yang didukung oleh JavaScript engine versi lama. Babel sering dipakai ketika kita menggunakan sintaks terbaru termasuk sintaks JSX.",
+      createdAt: "2022-04-14T04:27:34.572Z",
+      archived: false,
+    },
+    {
+      id: "notes-2",
+      title: "Babel",
+      body: "Babel merupakan tools open-source yang digunakan untuk mengubah sintaks ECMAScript 2015+ menjadi sintaks yang didukung oleh JavaScript engine versi lama. Babel sering dipakai ketika kita menggunakan sintaks terbaru termasuk sintaks JSX.",
+      createdAt: "2022-04-14T04:27:34.572Z",
+      archived: false,
+    },
+  ]);
 
-  useEffect(() => {
-    const { error } = getLoggedIn();
-    if (error) {
-      console.log("error");
-    } else {
-      setIslogin(true);
-    }
-  }, []);
+  const [isLogin, setIsLogin] = useState(true);
 
   const archivedNotes = notes.filter((note) => note.archived === true);
 
@@ -62,6 +68,7 @@ const App = () => {
   };
 
   if (isLogin) {
+    console.log("masuk cek login");
     return (
       <Router>
         <Routes>

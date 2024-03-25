@@ -9,7 +9,6 @@ const useLogged = () => {
     if (responseJson.status !== "success") {
       return { error: true, data: null };
     } else {
-      console.log(responseJson.data.id);
       return { error: false, data: responseJson.data };
     }
   };
