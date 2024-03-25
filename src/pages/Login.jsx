@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Container from "../components/Container";
 import useInput from "../hooks/useInput";
 import useLogin from "../hooks/useLogin";
@@ -57,6 +57,12 @@ const Login = () => {
               </button>
             </form>
           </div>
+          <h1 className="mt-6">
+            Belum Punya akun?{" "}
+            <Link to={"/register"} className="underline">
+              <span>Registrasi disini</span>
+            </Link>{" "}
+          </h1>
         </div>
       </Container>
     </>
