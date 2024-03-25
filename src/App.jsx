@@ -12,6 +12,7 @@ import Register from "./pages/Register";
 
 const App = () => {
   const [notes, setNotes] = useState(data);
+  const [userAuthenticated, setUserAuthenticated] = useState(false);
 
   const archivedNotes = notes.filter((note) => note.archived === true);
 
