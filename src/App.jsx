@@ -52,14 +52,6 @@ const App = () => {
 
   const [isLogin, setIsLogin] = useState(true);
 
-  const addNotes = (newNote) => {
-    setNotes([...notes, newNote]);
-  };
-
-  const getValueForm = (value) => {
-    addNotes(value);
-  };
-
   const getDeleteId = (noteId) => {
     const filteredNotes = notes.filter((note) => note.id !== noteId);
     setNotes(filteredNotes);
@@ -97,10 +89,7 @@ const App = () => {
               />
             }
           />
-          <Route
-            path="/notes/newnotes"
-            element={<NewNote getValueForm={getValueForm} />}
-          />
+          <Route path="/notes/newnotes" element={<NewNote />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
