@@ -2,12 +2,28 @@ import { useNavigate, useParams } from "react-router-dom";
 import Container from "../components/Container";
 import { getFormatedDate } from "../utils/getFormatedDate";
 import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
+import getNote from "../utils/getNote";
 
-const DetailPage = ({ notes, getDeleteId, getArchivedId, getUnarchivedId }) => {
+const DetailPage = ({ getDeleteId, getArchivedId, getUnarchivedId }) => {
   const { noteId } = useParams();
   const navigate = useNavigate();
 
-  const selectedNote = notes.find((note) => note.id === noteId);
+  const [note, setNote] = useState({});
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchSingleNote = async () => {
+      setLoading(true);
+      const { error, data } = await getNote(noteId);
+      if (!error) {
+        setNote(data);
+        setLoading(false);
+      }
+    };
+
+    fetchSingleNote();
+  }, []);
 
   const deleteHandler = (id) => {
     getDeleteId(id);
@@ -15,7 +31,7 @@ const DetailPage = ({ notes, getDeleteId, getArchivedId, getUnarchivedId }) => {
   };
 
   const archivedToggle = (id) => {
-    if (selectedNote.archived === true) {
+    if (note.archived === true) {
       getUnarchivedId(id);
       navigate("/arsip");
     } else {
@@ -24,23 +40,23 @@ const DetailPage = ({ notes, getDeleteId, getArchivedId, getUnarchivedId }) => {
     }
   };
 
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
   return (
     <>
       <Container>
-        <h1 className="text-xl font-bold">{selectedNote.title}</h1>
-        <p className="mt-2 text-gray-500">
-          {getFormatedDate(selectedNote.createdAt)}
-        </p>
-        <p className="text-lg mt-5">{selectedNote.body}</p>
+        <h1 className="text-xl font-bold">{note.title}</h1>
+        <p className="mt-2 text-gray-500">{getFormatedDate(note.createdAt)}</p>
+        <p className="text-lg mt-5">{note.body}</p>
         <div className="flex flex-row space-x-4 mt-4">
           <button
             className="p-3 bg-blue-400 text-black w-[100px] rounded-md hover:opacity-80 transition duration-200 ease-in-out flex flex-col justify-center items-center"
-            onClick={() => archivedToggle(selectedNote.id)}
-            title={
-              selectedNote.archived === false ? "Arsipkan" : "Batalkan Arsip"
-            }
+            onClick={() => archivedToggle(note.id)}
+            title={note.archived === false ? "Arsipkan" : "Batalkan Arsip"}
           >
-            {selectedNote.archived == false ? (
+            {note.archived == false ? (
               <>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +94,7 @@ const DetailPage = ({ notes, getDeleteId, getArchivedId, getUnarchivedId }) => {
           </button>
           <button
             className="p-3 bg-red-400 text-black w-[100px] rounded-md hover:opacity-80 transition duration-200 ease-in-out flex justify-center items-center"
-            onClick={() => deleteHandler(selectedNote.id)}
+            onClick={() => deleteHandler(note.id)}
             title="Hapus"
           >
             <svg
