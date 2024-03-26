@@ -5,8 +5,9 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import getNote from "../utils/getNote";
 import Loading from "../components/Loading";
+import deleteNote from "../utils/deleteNote";
 
-const DetailPage = ({ getDeleteId, getArchivedId, getUnarchivedId }) => {
+const DetailPage = ({ getArchivedId, getUnarchivedId }) => {
   const { noteId } = useParams();
   const navigate = useNavigate();
 
@@ -29,9 +30,13 @@ const DetailPage = ({ getDeleteId, getArchivedId, getUnarchivedId }) => {
     return () => clearTimeout(timer);
   }, [noteId]);
 
-  const deleteHandler = (id) => {
-    getDeleteId(id);
-    navigate("/");
+  const deleteHandler = async (id) => {
+    const { error } = await deleteNote(id);
+    if (!error) {
+      navigate("/");
+    } else {
+      console.log("error");
+    }
   };
 
   const archivedToggle = (id) => {
@@ -135,7 +140,7 @@ DetailPage.propTypes = {
       createdAt: PropTypes.string.isRequired,
     })
   ),
-  getDeleteId: PropTypes.func.isRequired,
+
   getArchivedId: PropTypes.func.isRequired,
   getUnarchivedId: PropTypes.func.isRequired,
 };

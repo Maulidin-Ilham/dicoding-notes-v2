@@ -52,11 +52,6 @@ const App = () => {
 
   const [isLogin, setIsLogin] = useState(true);
 
-  const getDeleteId = (noteId) => {
-    const filteredNotes = notes.filter((note) => note.id !== noteId);
-    setNotes(filteredNotes);
-  };
-
   const getArchivedId = (noteId) => {
     const updatedNotes = notes.map((note) =>
       note.id === noteId ? { ...note, archived: true } : note
@@ -83,7 +78,6 @@ const App = () => {
             path="/notes/:noteId"
             element={
               <DetailPage
-                getDeleteId={getDeleteId}
                 getArchivedId={getArchivedId}
                 getUnarchivedId={getUnarchivedId}
               />
