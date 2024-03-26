@@ -1,6 +1,9 @@
+import { useEffect, useState } from "react";
 import { fetchWithToken } from "../utils/fetchWithToken";
 
 const useFetchNotes = () => {
+  const [notes, setNotes] = useState([]);
+
   const BASE_URL = "https://notes-api.dicoding.dev/v1";
 
   const getActiveNotes = async () => {
@@ -10,11 +13,15 @@ const useFetchNotes = () => {
     if (responseJson.status !== "success") {
       return { error: true, data: null };
     }
-
+    setNotes(responseJson.data);
     return { error: false, data: responseJson.data };
   };
 
-  return { getActiveNotes };
+  useEffect(() => {
+    getActiveNotes();
+  }, []);
+
+  return { notes };
 };
 
 export default useFetchNotes;
