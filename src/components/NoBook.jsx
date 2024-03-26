@@ -1,4 +1,4 @@
-import empty from "../../public/empty.png";
+import empty from "/empty.png";
 import PropTypes from "prop-types";
 const NoBook = ({ children }) => {
   return (

@@ -12,6 +12,7 @@ const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams("");
   const [search, setSearch] = useState(searchParams.get("title") || "");
   const { notes, loading } = useFetchNotes();
+
   const filteredNotes = notes.filter((note) =>
     note.title.toLowerCase().includes(search.toLowerCase())
   );

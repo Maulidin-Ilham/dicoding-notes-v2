@@ -35,10 +35,7 @@ const Navbar = () => {
         <>
           {" "}
           <Link to={"/notes/newnotes"} title="Tambah Note">
-            <h1
-              className="font-semibold text-2xl hover:opacity-80 transition ease-in-out duration-200 "
-              title="Tambah Note"
-            >
+            <h1 className="font-semibold text-2xl hover:opacity-80 transition ease-in-out duration-200 ">
               <svg
                 viewBox="0 0 1024 1024"
                 fill="currentColor"
@@ -50,10 +47,7 @@ const Navbar = () => {
             </h1>
           </Link>
           <Link to={"/arsip"} title="Arsip">
-            <h1
-              className="font-semibold text-2xl hover:opacity-80 transition ease-in-out duration-200"
-              title="Arsip"
-            >
+            <h1 className="font-semibold text-2xl hover:opacity-80 transition ease-in-out duration-200">
               <svg
                 fill="currentColor"
                 viewBox="0 0 16 16"
