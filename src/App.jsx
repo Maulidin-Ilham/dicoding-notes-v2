@@ -4,18 +4,17 @@ import {
   Routes,
   Route,
   Navigate,
-  useNavigate,
 } from "react-router-dom";
 import Home from "./pages/Home";
 import Arsip from "./pages/Arsip";
 import DetailPage from "./pages/DetailPage";
 import NewNote from "./pages/NewNote";
 import NotFound from "./pages/NotFound";
-import { data } from "./utils/data";
+
 import { useEffect, useState } from "react";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { ActiveNoteContext } from "./contexts/activenotescontext";
+
 const App = () => {
   const [notes, setNotes] = useState([
     {
@@ -53,10 +52,6 @@ const App = () => {
 
   const [isLogin, setIsLogin] = useState(true);
 
-  const archivedNotes = notes.filter((note) => note.archived === true);
-
-  const activeNotes = notes.filter((note) => note.archived === false);
-
   const addNotes = (newNote) => {
     setNotes([...notes, newNote]);
   };
@@ -91,7 +86,7 @@ const App = () => {
         <Routes>
           {" "}
           <Route path="/" element={<Home />} />
-          <Route path="/arsip" element={<Arsip notes={archivedNotes} />} />
+          <Route path="/arsip" element={<Arsip />} />
           <Route
             path="/notes/:noteId"
             element={
