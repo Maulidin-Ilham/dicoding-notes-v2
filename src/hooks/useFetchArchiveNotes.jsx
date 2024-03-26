@@ -1,34 +1,33 @@
 import { useEffect, useState } from "react";
 import { fetchWithToken } from "../utils/fetchWithToken";
 
-const useFetchNotes = () => {
-  const [notes, setNotes] = useState([]);
-  const [loading, setLoading] = useState(true);
-
+const useFetchArchiveNotes = () => {
   const BASE_URL = "https://notes-api.dicoding.dev/v1";
 
-  const getActiveNotes = async () => {
+  const [archiveNotes, setArchiveNotes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const getArchivedNotes = async () => {
     setLoading(true);
-    const response = await fetchWithToken(`${BASE_URL}/notes`);
+    const response = await fetchWithToken(`${BASE_URL}/notes/archived`);
     const responseJson = await response.json();
 
     if (responseJson.status !== "success") {
       setLoading(true);
       return { error: true, data: null };
     }
-    setNotes(responseJson.data);
+    setArchiveNotes(responseJson.data);
     setLoading(false);
     return { error: false, data: responseJson.data };
   };
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      getActiveNotes();
+      getArchivedNotes();
     }, 1200);
     return () => clearTimeout(timer);
   }, []);
 
-  return { notes, loading };
+  return { archiveNotes, loading };
 };
 
-export default useFetchNotes;
+export default useFetchArchiveNotes;
