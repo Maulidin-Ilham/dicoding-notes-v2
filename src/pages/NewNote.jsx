@@ -3,8 +3,9 @@ import { useState } from "react";
 import Container from "../components/Container";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import addNote from "../utils/addNote";
 
-const NewNote = ({ getValueForm }) => {
+const NewNote = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [archived, setArchived] = useState(false);
@@ -12,23 +13,17 @@ const NewNote = ({ getValueForm }) => {
 
   let counter = title.length + body.length;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (title.trim() !== "" && body.trim() !== "" && counter <= 50) {
-      const date = new Date();
-      const id = date.getTime().toString();
-      const createdAt = date.toISOString();
-      const newNote = {
-        id,
-        title,
-        body,
-        archived,
-        createdAt,
-      };
-      getValueForm(newNote);
-      setTitle("");
-      setBody("");
-      navigate("/");
+      const { error, data } = addNote({ title, body });
+      if (!error) {
+        setTitle("");
+        setBody("");
+        navigate("/");
+      } else {
+        console.error("Error adding note");
+      }
     }
   };
 
@@ -80,9 +75,6 @@ const NewNote = ({ getValueForm }) => {
       </Container>
     </>
   );
-};
-NewNote.propTypes = {
-  getValueForm: PropTypes.func.isRequired,
 };
 
 export default NewNote;
