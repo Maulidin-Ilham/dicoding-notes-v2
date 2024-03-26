@@ -15,7 +15,7 @@ import { data } from "./utils/data";
 import { useEffect, useState } from "react";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-
+import { ActiveNoteContext } from "./contexts/activenotescontext";
 const App = () => {
   const [notes, setNotes] = useState([
     {
@@ -33,6 +33,23 @@ const App = () => {
       archived: false,
     },
   ]);
+
+  const initialNotes = [
+    {
+      id: "notes-1",
+      title: "Babel",
+      body: "Babel merupakan tools open-source yang digunakan untuk mengubah sintaks ECMAScript 2015+ menjadi sintaks yang didukung oleh JavaScript engine versi lama. Babel sering dipakai ketika kita menggunakan sintaks terbaru termasuk sintaks JSX.",
+      createdAt: "2022-04-14T04:27:34.572Z",
+      archived: false,
+    },
+    {
+      id: "notes-2",
+      title: "Babel2",
+      body: "Babel merupakan tools open-source yang digunakan untuk mengubah sintaks ECMAScript 2015+ menjadi sintaks yang didukung oleh JavaScript engine versi lama. Babel sering dipakai ketika kita menggunakan sintaks terbaru termasuk sintaks JSX.",
+      createdAt: "2022-04-14T04:27:34.572Z",
+      archived: false,
+    },
+  ];
 
   const [isLogin, setIsLogin] = useState(true);
 
@@ -72,13 +89,13 @@ const App = () => {
     return (
       <Router>
         <Routes>
-          <Route path="/" element={<Home notes={activeNotes} />} />
+          {" "}
+          <Route path="/" element={<Home />} />
           <Route path="/arsip" element={<Arsip notes={archivedNotes} />} />
           <Route
             path="/notes/:noteId"
             element={
               <DetailPage
-                notes={notes}
                 getDeleteId={getDeleteId}
                 getArchivedId={getArchivedId}
                 getUnarchivedId={getUnarchivedId}
