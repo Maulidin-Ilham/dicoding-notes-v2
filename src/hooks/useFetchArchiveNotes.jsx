@@ -23,7 +23,7 @@ const useFetchArchiveNotes = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       getArchivedNotes();
-    }, 1200);
+    }, 1500);
     return () => clearTimeout(timer);
   }, []);
 

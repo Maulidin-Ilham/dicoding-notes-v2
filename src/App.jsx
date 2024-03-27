@@ -14,9 +14,26 @@ import NotFound from "./pages/NotFound";
 import { useEffect, useState } from "react";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import useLogged from "./hooks/useLogged";
 
 const App = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
+  const { getLoggedIn } = useLogged();
+
+  useEffect(() => {
+    const loginCheck = async () => {
+      const { error, data } = await getLoggedIn();
+      if (!error) {
+        setIsLogin(true);
+        console.log(data);
+      } else {
+        setIsLogin(false);
+        console.log("error");
+      }
+    };
+
+    loginCheck();
+  }, []);
 
   if (isLogin) {
     console.log("masuk cek login");
