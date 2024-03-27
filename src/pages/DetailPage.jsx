@@ -29,7 +29,7 @@ const DetailPage = () => {
     };
     const timer = setTimeout(() => {
       fetchSingleNote();
-    }, 1200);
+    }, 1500);
 
     return () => clearTimeout(timer);
   }, [noteId]);

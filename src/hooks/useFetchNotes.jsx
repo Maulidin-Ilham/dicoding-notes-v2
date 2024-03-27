@@ -24,7 +24,7 @@ const useFetchNotes = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       getActiveNotes();
-    }, 1200);
+    }, 1500);
     return () => clearTimeout(timer);
   }, []);
 
