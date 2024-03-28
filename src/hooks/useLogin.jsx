@@ -20,7 +20,7 @@ const useLogin = () => {
     } else {
       putAccessToken(responseJson.data.accessToken);
 
-      return { error: false };
+      return { error: false, data: responseJson.data };
     }
   };
 

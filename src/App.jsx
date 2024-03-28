@@ -14,52 +14,69 @@ import NotFound from "./pages/NotFound";
 import { useEffect, useState } from "react";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import useLogged from "./hooks/useLogged";
+import UserContext from "./contexts/UserContext";
+import { fetchWithToken } from "./utils/fetchWithToken";
 
 const App = () => {
-  const [isLogin, setIsLogin] = useState(false);
-  const { getLoggedIn } = useLogged();
+  const [user, setUser] = useState(null);
+  const [loginStatusChanged, setLoginStatusChanged] = useState(false);
+  const BASE_URL = "https://notes-api.dicoding.dev/v1";
+
+  const getValueForm = (data) => {
+    if (data !== null) {
+      setLoginStatusChanged(!loginStatusChanged);
+    } else {
+      return null;
+    }
+  };
 
   useEffect(() => {
-    const loginCheck = async () => {
-      const { error, data } = await getLoggedIn();
-      if (!error) {
-        setIsLogin(true);
-        console.log(data);
+    const getLoggedIn = async () => {
+      const response = await fetchWithToken(`${BASE_URL}/users/me`);
+      const responseJson = await response.json();
+
+      if (responseJson.status !== "success") {
+        setUser(null);
+        return { error: true, data: null };
       } else {
-        setIsLogin(false);
-        console.log("error");
+        setUser(responseJson.data.name);
+        return { error: false, data: responseJson.data };
       }
     };
 
-    loginCheck();
-  }, []);
+    getLoggedIn();
+  }, [loginStatusChanged]);
 
-  if (isLogin) {
-    console.log("masuk cek login");
+  if (user === null) {
     return (
       <Router>
         <Routes>
-          {" "}
-          <Route path="/" element={<Home />} />
-          <Route path="/arsip" element={<Arsip />} />
-          <Route path="/notes/:noteId" element={<DetailPage />} />
-          <Route path="/notes/newnotes" element={<NewNote />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login getValueForm={getValueForm} />} />
           <Route path="/register" element={<Register />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>
     );
-  } else {
+  }
+
+  if (user !== null) {
     return (
-      <Router>
-        <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      </Router>
+      <UserContext.Provider value={{ user }}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/arsip" element={<Arsip />} />
+            <Route path="/notes/:noteId" element={<DetailPage />} />
+            <Route path="/notes/newnotes" element={<NewNote />} />
+            <Route
+              path="/login"
+              element={<Login getValueForm={getValueForm} />}
+            />
+            <Route path="/register" element={<Register />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Router>
+      </UserContext.Provider>
     );
   }
 };

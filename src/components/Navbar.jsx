@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import ThemeBtn from "./ThemeBtn";
 import LanguageBtn from "./LanguageBtn";
@@ -7,6 +7,7 @@ const Navbar = () => {
   const location = useLocation();
   const [isDark, setIsDark] = useState(false);
   const [isBahasa, setIsBahasa] = useState(true);
+  // const { user } = useContext(UserContext);
 
   const toggleTheme = () => {
     if (isDark) {
@@ -58,6 +59,15 @@ const Navbar = () => {
               </svg>
             </h1>
           </Link>
+          {/* {user !== null ? (
+            <>
+              <Link>
+                <h1 className="font-semibold text-2xl hover:opacity-80 transition ease-in-out duration-200">
+                  {user}
+                </h1>
+              </Link>
+            </>
+          ) : null} */}
         </>
       );
     } else if (
