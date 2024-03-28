@@ -8,7 +8,6 @@ import addNote from "../utils/addNote";
 const NewNote = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [archived, setArchived] = useState(false);
   const navigate = useNavigate();
 
   let counter = title.length + body.length;
