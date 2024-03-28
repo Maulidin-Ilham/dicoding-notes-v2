@@ -1,13 +1,15 @@
 import { useContext, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import ThemeBtn from "./ThemeBtn";
 import LanguageBtn from "./LanguageBtn";
+import UserContext from "../contexts/UserContext";
 
 const Navbar = () => {
   const location = useLocation();
   const [isDark, setIsDark] = useState(false);
   const [isBahasa, setIsBahasa] = useState(true);
-  // const { user } = useContext(UserContext);
+  const { user, logOut } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const toggleTheme = () => {
     if (isDark) {
@@ -25,18 +27,24 @@ const Navbar = () => {
     }
   };
 
+  const handlerLogout = () => {
+    logOut();
+    navigate("/");
+  };
+
   const isLoginNavbar = () => {
     if (
       location.pathname === "/" ||
       location.pathname === "/arsip" ||
       location.pathname === "/notes/newnotes" ||
-      location.pathname === "*"
+      location.pathname === "*" ||
+      location.pathname.includes("/notes/")
     ) {
       return (
         <>
           {" "}
           <Link to={"/notes/newnotes"} title="Tambah Note">
-            <h1 className="font-semibold text-2xl hover:opacity-80 transition ease-in-out duration-200 ">
+            <h1 className="font-semibold text-2xl hover:opacity-60 transition ease-in-out duration-200 ">
               <svg
                 viewBox="0 0 1024 1024"
                 fill="currentColor"
@@ -48,7 +56,7 @@ const Navbar = () => {
             </h1>
           </Link>
           <Link to={"/arsip"} title="Arsip">
-            <h1 className="font-semibold text-2xl hover:opacity-80 transition ease-in-out duration-200">
+            <h1 className="font-semibold text-2xl hover:opacity-60 transition ease-in-out duration-200">
               <svg
                 fill="currentColor"
                 viewBox="0 0 16 16"
@@ -59,15 +67,15 @@ const Navbar = () => {
               </svg>
             </h1>
           </Link>
-          {/* {user !== null ? (
+          {user !== null ? (
             <>
-              <Link>
-                <h1 className="font-semibold text-2xl hover:opacity-80 transition ease-in-out duration-200">
+              <Link onClick={() => handlerLogout()}>
+                <h1 className="font-semibold text-2xl hover:opacity-60 transition ease-in-out duration-200">
                   {user}
                 </h1>
               </Link>
             </>
-          ) : null} */}
+          ) : null}
         </>
       );
     } else if (
@@ -77,13 +85,13 @@ const Navbar = () => {
       return (
         <>
           <div className="cursor-pointer" onClick={() => toggleLanguage()}>
-            <h1 className="font-semibold text-lg hover:opacity-80 transition ease-in-out duration-200">
+            <h1 className="font-semibold text-lg hover:opacity-60 transition ease-in-out duration-200">
               <LanguageBtn isBahasa={isBahasa} />
             </h1>
           </div>
 
           <div className="cursor-pointer" onClick={() => toggleTheme()}>
-            <h1 className="font-semibold text-lg hover:opacity-80 transition ease-in-out duration-200">
+            <h1 className="font-semibold text-lg hover:opacity-60 transition ease-in-out duration-200">
               <ThemeBtn isDark={isDark} />
             </h1>
           </div>
@@ -95,7 +103,7 @@ const Navbar = () => {
   return (
     <div className="flex flex-row justify-between items-center bg-white text-black py-5 px-4 shadow-md">
       <Link to={"/"}>
-        <h1 className="font-semibold text-lg cursor-pointer hover:opacity-80 transition ease-in-out duration-200">
+        <h1 className="font-semibold text-lg cursor-pointer hover:opacity-60 transition ease-in-out duration-200">
           Aplikasi catatan
         </h1>
       </Link>

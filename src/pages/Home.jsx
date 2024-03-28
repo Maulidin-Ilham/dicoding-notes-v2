@@ -11,7 +11,6 @@ import UserContext from "../contexts/UserContext";
 
 const Home = () => {
   const { user } = useContext(UserContext);
-  console.log(user);
   const [searchParams, setSearchParams] = useSearchParams("");
   const [search, setSearch] = useState(searchParams.get("title") || "");
   const { notes, loading } = useFetchNotes();
