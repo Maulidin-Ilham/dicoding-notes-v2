@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useContext, useState } from "react";
 import CardNote from "../components/CardNote";
 import Container from "../components/Container";
 import { useSearchParams } from "react-router-dom";
@@ -7,8 +7,10 @@ import NoBook from "../components/NoBook";
 import PropTypes from "prop-types";
 import useFetchArchiveNotes from "../hooks/useFetchArchiveNotes";
 import Loading from "../components/Loading";
+import LanguageContext from "../contexts/LanguageContext";
 
 const Arsip = () => {
+  const { isEnglish } = useContext(LanguageContext);
   const [searchParams, setSearchParams] = useSearchParams("");
   const [search, setSearch] = useState(searchParams.get("title") || "");
   const { archiveNotes, loading } = useFetchArchiveNotes();
@@ -32,7 +34,7 @@ const Arsip = () => {
             onChange={(e) => handleInputChange(e.target.value)}
           />
           <h1 className="text-center font-semibold mt-6 text-xl mb-6">
-            Catatan Arsip
+            {isEnglish ? "Archive Notes" : "Catatan Arsip"}
           </h1>
           <div className="flex flex-col space-y-5 md:grid md:grid-cols-3 md:gap-5 md:space-y-0 lg:grid-cols-4">
             {loading && <Loading />}

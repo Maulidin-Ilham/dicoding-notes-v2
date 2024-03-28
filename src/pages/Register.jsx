@@ -2,6 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Container from "../components/Container";
 import useInput from "../hooks/useInput";
 import useRegister from "../hooks/useRegister";
+import { useContext } from "react";
+import LanguageContext from "../contexts/LanguageContext";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -9,6 +11,7 @@ const Register = () => {
   const [email, onChangeEmail] = useInput("");
   const [password, onChangePassword] = useInput("");
   const { register } = useRegister();
+  const { isEnglish } = useContext(LanguageContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,10 +74,10 @@ const Register = () => {
             </form>
           </div>
           <h1 className="mt-6">
-            Sudah Punya akun?{" "}
+            {isEnglish ? "Already have account? " : "Sudah Punya akun? "}
             <Link to={"/login"} className="underline">
-              <span>Login disini</span>
-            </Link>{" "}
+              <span>{isEnglish ? "Login here" : "Login disini"}</span>
+            </Link>
           </h1>
         </div>
       </Container>

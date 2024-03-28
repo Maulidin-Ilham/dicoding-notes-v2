@@ -16,12 +16,14 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import UserContext from "./contexts/UserContext";
 import { fetchWithToken } from "./utils/fetchWithToken";
+import LanguageContext from "./contexts/LanguageContext";
 
 const App = () => {
   const [user, setUser] = useState(null);
   const [loginStatusChanged, setLoginStatusChanged] = useState(false);
   const [logoutChanged, setLogoutChanged] = useState(false);
   const BASE_URL = "https://notes-api.dicoding.dev/v1";
+  const [isEnglish, setIsEnglish] = useState(false);
 
   const getValueForm = (data) => {
     if (data !== null) {
@@ -60,36 +62,40 @@ const App = () => {
 
   if (user === null) {
     return (
-      <UserContext.Provider value={{ user, logOut }}>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Login getValueForm={getValueForm} />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
-        </Router>
-      </UserContext.Provider>
+      <LanguageContext.Provider value={{ isEnglish, setIsEnglish }}>
+        <UserContext.Provider value={{ user, logOut }}>
+          <Router>
+            <Routes>
+              <Route path="/" element={<Login getValueForm={getValueForm} />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+          </Router>
+        </UserContext.Provider>
+      </LanguageContext.Provider>
     );
   }
 
   if (user !== null) {
     return (
-      <UserContext.Provider value={{ user, logOut }}>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/arsip" element={<Arsip />} />
-            <Route path="/notes/:noteId" element={<DetailPage />} />
-            <Route path="/notes/newnotes" element={<NewNote />} />
-            <Route
-              path="/login"
-              element={<Login getValueForm={getValueForm} />}
-            />
-            <Route path="/register" element={<Register />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Router>
-      </UserContext.Provider>
+      <LanguageContext.Provider value={{ isEnglish, setIsEnglish }}>
+        <UserContext.Provider value={{ user, logOut }}>
+          <Router>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/arsip" element={<Arsip />} />
+              <Route path="/notes/:noteId" element={<DetailPage />} />
+              <Route path="/notes/newnotes" element={<NewNote />} />
+              <Route
+                path="/login"
+                element={<Login getValueForm={getValueForm} />}
+              />
+              <Route path="/register" element={<Register />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Router>
+        </UserContext.Provider>
+      </LanguageContext.Provider>
     );
   }
 };
