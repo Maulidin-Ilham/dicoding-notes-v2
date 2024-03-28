@@ -69,7 +69,9 @@ const Register = () => {
                 type="submit"
                 className="p-3 bg-black text-white rounded-md hover:opacity-80 transition  duration-200 ease-in-out"
               >
-                <p className="font-bold tracking-wide text-base">Simpan</p>
+                <p className="font-bold tracking-wide text-base">
+                  {isEnglish ? "Register" : "Daftar"}
+                </p>
               </button>
             </form>
           </div>
