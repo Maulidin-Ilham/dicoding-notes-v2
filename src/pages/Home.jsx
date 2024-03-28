@@ -32,7 +32,9 @@ const Home = () => {
         <div className="flex flex-col  ">
           <input
             type="text"
-            placeholder="Cari berdasarkan judul"
+            placeholder={
+              isEnglish ? "Search by title" : "Cari berdasarkan judul"
+            }
             className="p-3 rounded-md border-2 border-gray-200 outline-none focus:border-gray-500 w-full"
             value={search}
             onChange={(e) => handleInputChange(e.target.value)}

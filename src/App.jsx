@@ -36,6 +36,7 @@ const App = () => {
   const logOut = () => {
     setLogoutChanged(!logoutChanged);
     localStorage.removeItem("accessToken");
+    setUser(null);
   };
 
   useEffect(() => {
@@ -59,6 +60,20 @@ const App = () => {
 
     getLoggedIn();
   }, [loginStatusChanged, logoutChanged]);
+
+  useEffect(() => {
+    const handleUnload = (event) => {
+      if (event.clientY < 0) {
+        localStorage.clear();
+      }
+    };
+
+    window.addEventListener("beforeunload", handleUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleUnload);
+    };
+  }, []);
 
   if (user === null) {
     return (
