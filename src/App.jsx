@@ -50,7 +50,6 @@ const App = () => {
           return { error: false, data: responseJson.data };
         }
       } catch (error) {
-        console.error("Error fetching user data:", error);
         setUser(null);
         return { error: true, data: null };
       }
@@ -58,18 +57,6 @@ const App = () => {
 
     getLoggedIn();
   }, [loginStatusChanged, logoutChanged]);
-
-  useEffect(() => {
-    const handleBeforeUnload = () => {
-      localStorage.removeItem("accessToken");
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, []);
 
   if (user === null) {
     return (

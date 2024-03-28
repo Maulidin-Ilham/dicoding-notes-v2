@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Container from "../components/Container";
 import useInput from "../hooks/useInput";
 import useLogin from "../hooks/useLogin";
@@ -9,7 +9,7 @@ const Login = ({ getValueForm }) => {
   const [email, onChangeEmail] = useInput("");
   const [password, onChangePassword] = useInput("");
   const { login } = useLogin();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +19,7 @@ const Login = ({ getValueForm }) => {
         console.error();
       } else {
         getValueForm(data);
-        navigate("/");
+        // navigate("/login");
       }
     }
   };
@@ -27,7 +27,6 @@ const Login = ({ getValueForm }) => {
   return (
     <>
       <Container>
-        <h1>Login page</h1>
         <div className="md:flex md:flex-col md:items-center">
           <div className="bg-gray-200 border border-gray-200 p-5 rounded-md shadow-md md:w-7/12 lg:w-6/12">
             <form

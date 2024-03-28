@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Container from "../components/Container";
 import useInput from "../hooks/useInput";
 import useRegister from "../hooks/useRegister";
@@ -30,7 +30,6 @@ const Register = () => {
   return (
     <>
       <Container>
-        <h1>Register</h1>
         <div className="md:flex md:flex-col md:items-center">
           <div className="bg-gray-200 border border-gray-200 p-5 rounded-md shadow-md md:w-7/12 lg:w-6/12">
             <form
@@ -71,6 +70,12 @@ const Register = () => {
               </button>
             </form>
           </div>
+          <h1 className="mt-6">
+            Sudah Punya akun?{" "}
+            <Link to={"/login"} className="underline">
+              <span>Login disini</span>
+            </Link>{" "}
+          </h1>
         </div>
       </Container>
     </>
