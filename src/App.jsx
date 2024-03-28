@@ -20,6 +20,7 @@ import { fetchWithToken } from "./utils/fetchWithToken";
 const App = () => {
   const [user, setUser] = useState(null);
   const [loginStatusChanged, setLoginStatusChanged] = useState(false);
+  const [logoutChanged, setLogoutChanged] = useState(false);
   const BASE_URL = "https://notes-api.dicoding.dev/v1";
 
   const getValueForm = (data) => {
@@ -30,38 +31,52 @@ const App = () => {
     }
   };
 
+  const logOut = () => {
+    setLogoutChanged(!logoutChanged);
+    localStorage.removeItem("accessToken");
+  };
+
   useEffect(() => {
     const getLoggedIn = async () => {
-      const response = await fetchWithToken(`${BASE_URL}/users/me`);
-      const responseJson = await response.json();
+      try {
+        const response = await fetchWithToken(`${BASE_URL}/users/me`);
+        const responseJson = await response.json();
 
-      if (responseJson.status !== "success") {
+        if (responseJson.status !== "success") {
+          setUser(null);
+          return { error: true, data: null };
+        } else {
+          setUser(responseJson.data.name);
+          return { error: false, data: responseJson.data };
+        }
+      } catch (error) {
+        // Handle unauthorized error
+        console.error("Error fetching user data:", error);
         setUser(null);
         return { error: true, data: null };
-      } else {
-        setUser(responseJson.data.name);
-        return { error: false, data: responseJson.data };
       }
     };
 
     getLoggedIn();
-  }, [loginStatusChanged]);
+  }, [loginStatusChanged, logoutChanged]);
 
   if (user === null) {
     return (
-      <Router>
-        <Routes>
-          <Route path="/" element={<Login getValueForm={getValueForm} />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-      </Router>
+      <UserContext.Provider value={{ user, logOut }}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Login getValueForm={getValueForm} />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </Router>
+      </UserContext.Provider>
     );
   }
 
   if (user !== null) {
     return (
-      <UserContext.Provider value={{ user }}>
+      <UserContext.Provider value={{ user, logOut }}>
         <Router>
           <Routes>
             <Route path="/" element={<Home />} />
