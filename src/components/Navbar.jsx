@@ -3,12 +3,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import ThemeBtn from "./ThemeBtn";
 import LanguageBtn from "./LanguageBtn";
 import UserContext from "../contexts/UserContext";
+import LanguageContext from "../contexts/LanguageContext";
 
 const Navbar = () => {
   const location = useLocation();
   const [isDark, setIsDark] = useState(false);
-  const [isBahasa, setIsBahasa] = useState(true);
+
   const { user, logOut } = useContext(UserContext);
+  const { isEnglish, setIsEnglish } = useContext(LanguageContext);
   const navigate = useNavigate();
 
   const toggleTheme = () => {
@@ -20,10 +22,10 @@ const Navbar = () => {
   };
 
   const toggleLanguage = () => {
-    if (isBahasa) {
-      setIsBahasa(false);
+    if (isEnglish) {
+      setIsEnglish(false);
     } else {
-      setIsBahasa(true);
+      setIsEnglish(true);
     }
   };
 
@@ -44,7 +46,7 @@ const Navbar = () => {
         <>
           <div className="cursor-pointer" onClick={() => toggleLanguage()}>
             <h1 className="font-semibold text-lg hover:opacity-60 transition ease-in-out duration-200">
-              <LanguageBtn isBahasa={isBahasa} />
+              <LanguageBtn isEnglish={isEnglish} />
             </h1>
           </div>
 
@@ -54,7 +56,10 @@ const Navbar = () => {
             </h1>
           </div>
           {user !== null && (
-            <Link to={"/notes/newnotes"} title="Tambah Note">
+            <Link
+              to={"/notes/newnotes"}
+              title={isEnglish ? "Add Notes" : "Tambah Note"}
+            >
               <h1 className="font-semibold text-2xl hover:opacity-60 transition ease-in-out duration-200 ">
                 <svg
                   viewBox="0 0 1024 1024"
@@ -68,7 +73,7 @@ const Navbar = () => {
             </Link>
           )}
           {user !== null && (
-            <Link to={"/arsip"} title="Arsip">
+            <Link to={"/arsip"} title={isEnglish ? "Archive" : "Arsip"}>
               <h1 className="font-semibold text-2xl hover:opacity-60 transition ease-in-out duration-200">
                 <svg
                   fill="currentColor"
@@ -100,7 +105,7 @@ const Navbar = () => {
         <>
           <div className="cursor-pointer" onClick={() => toggleLanguage()}>
             <h1 className="font-semibold text-lg hover:opacity-60 transition ease-in-out duration-200">
-              <LanguageBtn isBahasa={isBahasa} />
+              <LanguageBtn isEnglish={isEnglish} />
             </h1>
           </div>
 
@@ -118,7 +123,7 @@ const Navbar = () => {
     <div className="flex flex-row justify-between items-center bg-white text-black py-5 px-4 shadow-md">
       <Link to={"/"}>
         <h1 className="font-semibold text-lg cursor-pointer hover:opacity-60 transition ease-in-out duration-200">
-          Aplikasi catatan
+          {isEnglish ? "Note's App" : "Aplikasi Catatan"}
         </h1>
       </Link>
       <div className="flex flex-row space-x-5 items-center justify-center">

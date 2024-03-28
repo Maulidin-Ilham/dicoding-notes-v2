@@ -4,12 +4,14 @@ import Container from "../components/Container";
 import useInput from "../hooks/useInput";
 import useLogin from "../hooks/useLogin";
 import PropTypes from "prop-types";
+import { useContext } from "react";
+import LanguageContext from "../contexts/LanguageContext";
 
 const Login = ({ getValueForm }) => {
   const [email, onChangeEmail] = useInput("");
   const [password, onChangePassword] = useInput("");
   const { login } = useLogin();
-  // const navigate = useNavigate();
+  const { isEnglish } = useContext(LanguageContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +21,6 @@ const Login = ({ getValueForm }) => {
         console.error();
       } else {
         getValueForm(data);
-        // navigate("/login");
       }
     }
   };
@@ -60,9 +61,9 @@ const Login = ({ getValueForm }) => {
             </form>
           </div>
           <h1 className="mt-6">
-            Belum Punya akun?{" "}
+            {isEnglish ? "Dont have any account? " : "Belum Punya akun? "}
             <Link to={"/register"} className="underline">
-              <span>Registrasi disini</span>
+              <span>{isEnglish ? "Register here" : "Registrasi disini"}</span>
             </Link>{" "}
           </h1>
         </div>

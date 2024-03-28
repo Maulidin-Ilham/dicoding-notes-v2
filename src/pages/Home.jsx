@@ -8,9 +8,11 @@ import PropTypes from "prop-types";
 import useFetchNotes from "../hooks/useFetchNotes";
 import Loading from "../components/Loading";
 import UserContext from "../contexts/UserContext";
+import LanguageContext from "../contexts/LanguageContext";
 
 const Home = () => {
   const { user } = useContext(UserContext);
+  const { isEnglish } = useContext(LanguageContext);
   const [searchParams, setSearchParams] = useSearchParams("");
   const [search, setSearch] = useState(searchParams.get("title") || "");
   const { notes, loading } = useFetchNotes();
@@ -36,7 +38,7 @@ const Home = () => {
             onChange={(e) => handleInputChange(e.target.value)}
           />
           <h1 className="text-center font-semibold mt-6 text-xl mb-6 ">
-            Catatan Aktif
+            {isEnglish ? "Active Notes" : "Catatan Aktif"}
           </h1>
           <div className="flex flex-col space-y-5 md:grid md:grid-cols-3 md:gap-5 md:space-y-0 lg:grid-cols-4">
             {loading && <Loading />}
