@@ -1,23 +1,24 @@
+/* eslint-disable react/prop-types */
 import { Link, useNavigate } from "react-router-dom";
 import Container from "../components/Container";
 import useInput from "../hooks/useInput";
 import useLogin from "../hooks/useLogin";
 
-const Login = () => {
-  const navigate = useNavigate();
+const Login = ({ getValueForm }) => {
   const [email, onChangeEmail] = useInput("");
   const [password, onChangePassword] = useInput("");
   const { login } = useLogin();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (email.trim() !== "" && password.length >= 6) {
-      const { error } = login({ email, password });
+      const { error, data } = await login({ email, password });
       if (error) {
-        console.error(error);
+        console.error();
       } else {
+        getValueForm(data);
         navigate("/");
-        console.log("berhasil login");
       }
     }
   };
