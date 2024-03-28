@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Container from "../components/Container";
 import useInput from "../hooks/useInput";
 import useLogin from "../hooks/useLogin";
+import PropTypes from "prop-types";
 
 const Login = ({ getValueForm }) => {
   const [email, onChangeEmail] = useInput("");
@@ -69,6 +70,10 @@ const Login = ({ getValueForm }) => {
       </Container>
     </>
   );
+};
+
+Login.propTypes = {
+  getValueForm: PropTypes.func.isRequired,
 };
 
 export default Login;
