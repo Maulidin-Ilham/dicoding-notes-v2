@@ -54,7 +54,7 @@ const Login = ({ getValueForm }) => {
 
               <button
                 type="submit"
-                className="p-3 bg-black text-white rounded-md hover:opacity-80 transition  duration-200 ease-in-out"
+                className="p-3 bg-black text-white  rounded-md hover:opacity-80 transition  duration-200 ease-in-out"
               >
                 <p className="font-bold tracking-wide text-base">
                   {isEnglish ? "Login" : "Masuk"}
@@ -62,7 +62,7 @@ const Login = ({ getValueForm }) => {
               </button>
             </form>
           </div>
-          <h1 className="mt-6">
+          <h1 className="mt-6 dark:text-white ">
             {isEnglish ? "Dont have any account? " : "Belum Punya akun? "}
             <Link to={"/register"} className="underline">
               <span>{isEnglish ? "Register here" : "Registrasi disini"}</span>

@@ -17,6 +17,7 @@ import Register from "./pages/Register";
 import UserContext from "./contexts/UserContext";
 import { fetchWithToken } from "./utils/fetchWithToken";
 import LanguageContext from "./contexts/LanguageContext";
+import ThemeContext from "./contexts/ThemeContext";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -24,6 +25,17 @@ const App = () => {
   const [logoutChanged, setLogoutChanged] = useState(false);
   const BASE_URL = "https://notes-api.dicoding.dev/v1";
   const [isEnglish, setIsEnglish] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+
+  const toggleTheme = () => {
+    document.documentElement.classList.toggle("dark");
+    const checkMode = document.documentElement.classList.contains("dark");
+    if (checkMode) {
+      setIsDark(true);
+    } else {
+      setIsDark(false);
+    }
+  };
 
   const getValueForm = (data) => {
     if (data !== null) {
@@ -77,40 +89,47 @@ const App = () => {
 
   if (user === null) {
     return (
-      <LanguageContext.Provider value={{ isEnglish, setIsEnglish }}>
-        <UserContext.Provider value={{ user, logOut }}>
-          <Router>
-            <Routes>
-              <Route path="/" element={<Login getValueForm={getValueForm} />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
-          </Router>
-        </UserContext.Provider>
-      </LanguageContext.Provider>
+      <ThemeContext.Provider value={{ toggleTheme, isDark }}>
+        <LanguageContext.Provider value={{ isEnglish, setIsEnglish }}>
+          <UserContext.Provider value={{ user, logOut }}>
+            <Router>
+              <Routes>
+                <Route
+                  path="/"
+                  element={<Login getValueForm={getValueForm} />}
+                />
+                <Route path="/register" element={<Register />} />
+                <Route path="*" element={<Navigate to="/" />} />
+              </Routes>
+            </Router>
+          </UserContext.Provider>
+        </LanguageContext.Provider>
+      </ThemeContext.Provider>
     );
   }
 
   if (user !== null) {
     return (
-      <LanguageContext.Provider value={{ isEnglish, setIsEnglish }}>
-        <UserContext.Provider value={{ user, logOut }}>
-          <Router>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/arsip" element={<Arsip />} />
-              <Route path="/notes/:noteId" element={<DetailPage />} />
-              <Route path="/notes/newnotes" element={<NewNote />} />
-              <Route
-                path="/login"
-                element={<Login getValueForm={getValueForm} />}
-              />
-              <Route path="/register" element={<Register />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Router>
-        </UserContext.Provider>
-      </LanguageContext.Provider>
+      <ThemeContext.Provider value={{ toggleTheme, isDark }}>
+        <LanguageContext.Provider value={{ isEnglish, setIsEnglish }}>
+          <UserContext.Provider value={{ user, logOut }}>
+            <Router>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/arsip" element={<Arsip />} />
+                <Route path="/notes/:noteId" element={<DetailPage />} />
+                <Route path="/notes/newnotes" element={<NewNote />} />
+                <Route
+                  path="/login"
+                  element={<Login getValueForm={getValueForm} />}
+                />
+                <Route path="/register" element={<Register />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Router>
+          </UserContext.Provider>
+        </LanguageContext.Provider>
+      </ThemeContext.Provider>
     );
   }
 };

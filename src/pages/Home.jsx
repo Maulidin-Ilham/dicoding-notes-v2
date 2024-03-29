@@ -39,7 +39,7 @@ const Home = () => {
             value={search}
             onChange={(e) => handleInputChange(e.target.value)}
           />
-          <h1 className="text-center font-semibold mt-6 text-xl mb-6 ">
+          <h1 className="text-center font-semibold mt-6 text-xl mb-6 dark:text-white">
             {isEnglish ? "Active Notes" : "Catatan Aktif"}
           </h1>
           <div className="flex flex-col space-y-5 md:grid md:grid-cols-3 md:gap-5 md:space-y-0 lg:grid-cols-4">

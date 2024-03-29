@@ -67,12 +67,12 @@ const DetailPage = () => {
         {loading && <Loading />}
         {!loading && (
           <>
-            <h1 className="text-xl font-bold">{note.title}</h1>
-            <p className="mt-2 text-gray-500">
+            <h1 className="text-xl font-bold dark:text-white">{note.title}</h1>
+            <p className="mt-2 text-gray-500 dark:text-white">
               {getFormatedDate(note.createdAt)}
             </p>
-            <p className="text-lg mt-5">{note.body}</p>
-            <div className="flex flex-row space-x-4 mt-4">
+            <p className="text-lg mt-5 dark:text-white">{note.body}</p>
+            <div className="flex flex-row space-x-4 mt-4 dark:text-white">
               <button
                 className="p-3 bg-blue-400 text-black w-[100px] rounded-md hover:opacity-80 transition duration-200 ease-in-out flex flex-col justify-center items-center"
                 onClick={() => archivedToggle(note.id)}
