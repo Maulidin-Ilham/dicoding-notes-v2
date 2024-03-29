@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Container from "../components/Container";
 import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
+
 import addNote from "../utils/addNote";
 
 const NewNote = () => {
@@ -10,7 +10,7 @@ const NewNote = () => {
   const [body, setBody] = useState("");
   const navigate = useNavigate();
 
-  let counter = title.length + body.length;
+  let counter = title.length;
 
   const handleSubmit = async (e) => {
     e.preventDefault();

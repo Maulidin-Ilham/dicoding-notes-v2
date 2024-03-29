@@ -31,8 +31,10 @@ const App = () => {
     document.documentElement.classList.toggle("dark");
     const checkMode = document.documentElement.classList.contains("dark");
     if (checkMode) {
+      localStorage.setItem("theme", "dark");
       setIsDark(true);
     } else {
+      localStorage.setItem("theme", "light");
       setIsDark(false);
     }
   };
@@ -48,7 +50,6 @@ const App = () => {
   const logOut = () => {
     setLogoutChanged(!logoutChanged);
     localStorage.removeItem("accessToken");
-    setUser(null);
   };
 
   useEffect(() => {
@@ -74,18 +75,15 @@ const App = () => {
   }, [loginStatusChanged, logoutChanged]);
 
   useEffect(() => {
-    const handleUnload = (event) => {
-      if (event.clientY < 0) {
-        localStorage.clear();
-      }
-    };
-
-    window.addEventListener("beforeunload", handleUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleUnload);
-    };
-  }, []);
+    const checkNode = localStorage.getItem("theme");
+    if (checkNode === "light") {
+      document.documentElement.classList.remove("dark");
+      setIsDark(false);
+    } else {
+      document.documentElement.classList.add("dark");
+      setIsDark(true);
+    }
+  }, [isDark]);
 
   if (user === null) {
     return (
