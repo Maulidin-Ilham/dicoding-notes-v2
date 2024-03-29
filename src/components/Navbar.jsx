@@ -1,25 +1,19 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import ThemeBtn from "./ThemeBtn";
 import LanguageBtn from "./LanguageBtn";
 import UserContext from "../contexts/UserContext";
 import LanguageContext from "../contexts/LanguageContext";
+import ThemeContext from "../contexts/ThemeContext";
 
 const Navbar = () => {
   const location = useLocation();
-  const [isDark, setIsDark] = useState(false);
+
+  const { toggleTheme, isDark } = useContext(ThemeContext);
 
   const { user, logOut } = useContext(UserContext);
   const { isEnglish, setIsEnglish } = useContext(LanguageContext);
   const navigate = useNavigate();
-
-  const toggleTheme = () => {
-    if (isDark) {
-      setIsDark(false);
-    } else {
-      setIsDark(true);
-    }
-  };
 
   const toggleLanguage = () => {
     if (isEnglish) {
@@ -139,7 +133,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex flex-row justify-between items-center bg-white text-black py-5 px-4 shadow-md">
+    <div className="flex flex-row justify-between items-center bg-white text-black py-5 px-4 shadow-md dark:bg-black dark:text-white">
       <Link to={"/"}>
         <h1 className="font-semibold text-lg cursor-pointer hover:opacity-60 transition ease-in-out duration-200">
           {isEnglish ? "Note's App" : "Aplikasi Catatan"}

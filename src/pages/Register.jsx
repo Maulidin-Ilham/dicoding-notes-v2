@@ -75,7 +75,7 @@ const Register = () => {
               </button>
             </form>
           </div>
-          <h1 className="mt-6">
+          <h1 className="mt-6 dark:text-white">
             {isEnglish ? "Already have account? " : "Sudah Punya akun? "}
             <Link to={"/login"} className="underline">
               <span>{isEnglish ? "Login here" : "Login disini"}</span>
